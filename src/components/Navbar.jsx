@@ -16,7 +16,7 @@ const Navbar = () => {
             isActive ? "text-blue-600" : "text-black"
           }
         >
-          Sobre mi
+          Sobre Mi
         </NavLink>
         <NavLink
           to="/projects"
