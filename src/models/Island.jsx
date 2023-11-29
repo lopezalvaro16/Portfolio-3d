@@ -56,6 +56,9 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
       rotationSpeed.current = -0.0125;
     }
   };
+  useEffect(() => {
+    islandRef.current.rotation.y = 4.7;
+  }, []);
 
   const handleKeyUp = (e) => {
     if (e.key === "ArrowLeft" || e.key === "ArrowRight") {

@@ -9,6 +9,8 @@ import HomeInfo from "../components/HomeInfo";
 import sakura from "../assets/sakura.mp3";
 import { soundoff, soundon } from "../assets/icons";
 
+import Swal from "sweetalert2";
+
 function Home() {
   const audioRef = useRef(new Audio(sakura));
   audioRef.current.volume = 0.4;
@@ -17,6 +19,70 @@ function Home() {
   const [isRotating, setIsRotating] = useState(false);
   const [currentStage, setCurrentStage] = useState(1);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const [showInstructions, setShowInstructions] = useState(true);
+  const showInstructionsHandler = () => {
+    setShowInstructions(true);
+
+    const showAlertTimeout = setTimeout(() => {
+      Swal.fire({
+        html: `
+          <div style="font-size: 16px; text-align: left;">
+            <p><strong>¡Bienvenido!</strong></p>
+            <p>Para explorar la aplicación, utiliza las siguientes opciones:</p>
+            <ul>
+              <li><strong>Teclado:</strong> Utiliza las teclas de dirección (izquierda o derecha) para moverte.</li>
+              <li><strong>Ratón:</strong> Haz clic y arrastra con el ratón para cambiar la perspectiva del mapa.</li>
+            </ul>
+          </div>
+          <img src="https://img2.freepng.es/20180502/qve/kisspng-computer-keyboard-arrow-keys-computer-icons-page-u-5ae939f140e7c1.4426757415252341612659.jpg" alt="Teclado y Ratón" style="max-width: 100%; height: auto; margin-top: 10px;">
+        `,
+        position: "bottom-end",
+        width: 400,
+        padding: "0.5rem",
+        confirmButtonColor: "#40c9ff",
+      });
+    }, 0);
+
+    const closeAlertTimeout = setTimeout(() => {
+      setShowInstructions(false);
+      Swal.close();
+    }, 35000);
+
+    return () => {
+      clearTimeout(showAlertTimeout);
+      clearTimeout(closeAlertTimeout);
+    };
+  };
+  useEffect(() => {
+    const showAlertTimeout = setTimeout(() => {
+      Swal.fire({
+        html: `
+          <div style="font-size: 16px; text-align: left;">
+            <p><strong>¡Bienvenido!</strong></p>
+            <p>Para explorar la aplicación, utiliza las siguientes opciones:</p>
+            <ul>
+              <li><strong>Teclado:</strong> Utiliza las teclas de dirección (izquierda o derecha) para moverte.</li>
+              <li><strong>Ratón:</strong> Haz clic y arrastra con el ratón para cambiar la perspectiva del mapa.</li>
+            </ul>
+          </div>
+          <img src="https://img2.freepng.es/20180502/qve/kisspng-computer-keyboard-arrow-keys-computer-icons-page-u-5ae939f140e7c1.4426757415252341612659.jpg" alt="Teclado y Ratón" style="max-width: 100%; height: auto; margin-top: 10px;">
+        `,
+        position: "bottom-end",
+        width: 400,
+        padding: "0.5rem",
+        confirmButtonColor: "#40c9ff",
+      });
+    }, 1200);
+
+    const closeAlertTimeout = setTimeout(() => {
+      Swal.close();
+    }, 35000);
+
+    return () => {
+      clearTimeout(showAlertTimeout);
+      clearTimeout(closeAlertTimeout);
+    };
+  }, []);
 
   useEffect(() => {
     if (isPlayingMusic) {
@@ -71,7 +137,7 @@ function Home() {
       >
         <Suspense fallback={<Loader />}>
           <directionalLight position={[1, 1, 1]} intensity={2} />
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.8} />
           <hemisphereLight
             skyColor="#b1e1ff"
             groundColor="#000000"
@@ -103,6 +169,15 @@ function Home() {
           onClick={() => setIsPlayingMusic(!isPlayingMusic)}
           className="w-10 h-10 cursor-pointer object-contain"
         />
+      </div>
+
+      <div className="absolute top-2 right-2">
+        <button
+          onClick={showInstructionsHandler}
+          className="text-white bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none"
+        >
+          Instrucciones
+        </button>
       </div>
     </section>
   );
