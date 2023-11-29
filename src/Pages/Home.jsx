@@ -171,7 +171,17 @@ function Home() {
         />
       </div>
 
-      <div className="absolute top-2 right-2">
+      <div className="absolute top-2 right-2 hidden md:block">
+        <button
+          onClick={showInstructionsHandler}
+          className="text-white bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none"
+        >
+          Instrucciones
+        </button>
+      </div>
+
+      {/* Botón de instrucciones para dispositivos móviles */}
+      <div className="absolute bottom-2 left-2 md:hidden">
         <button
           onClick={showInstructionsHandler}
           className="text-white bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none"
